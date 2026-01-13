@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="paleBlue">#E3F2FD</color>
+    <color name="lightGreen">#E8F5E9</color>
+    <color name="softYellow">#FFFDE7</color>
+    <color name="lightLavender">#F3E5F5</color>
+    <color name="darkText">#424242</color>
+    <color name="white">#FFFFFF</color>
+</resources>
