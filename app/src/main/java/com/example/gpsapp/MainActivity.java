@@ -27,13 +27,11 @@ public class MainActivity extends AppCompatActivity {
     private Button btnGetLocation;
     private LocationViewModel locationViewModel;
 
-    // Variables para el mapa
     private MapView mapView;
     private Marker userMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Es importante configurar el UserAgent antes del layout
         Configuration.getInstance().setUserAgentValue(getPackageName());
 
         super.onCreate(savedInstanceState);
@@ -42,28 +40,27 @@ public class MainActivity extends AppCompatActivity {
         txtLocation = findViewById(R.id.txtLocation);
         btnGetLocation = findViewById(R.id.btnGetLocation);
 
-        // Inicializar el Mapa
         mapView = findViewById(R.id.map);
-        mapView.setMultiTouchControls(true); // Permite hacer zoom con los dedos
-        mapView.getController().setZoom(18.0); // Nivel de zoom inicial
+        mapView.setMultiTouchControls(true);
+        mapView.getController().setZoom(18.0);
 
         locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
 
-        // Observar la ubicación
         locationViewModel.getLocationData().observe(this, location -> {
             if (location != null) {
                 showLocation(location);
-                updateMap(location.getLatitude(), location.getLongitude()); // Actualizar mapa
+                updateMap(location.getLatitude(), location.getLongitude());
+            } else {
+                txtLocation.setText("No se pudo obtener la ubicación");
             }
         });
 
         btnGetLocation.setOnClickListener(v -> getLocation());
     }
 
-    // Método para actualizar la posición en el mapa
     private void updateMap(double lat, double lon) {
         GeoPoint point = new GeoPoint(lat, lon);
-        mapView.getController().setCenter(point); // Centra el mapa en las coordenadas
+        mapView.getController().setCenter(point);
 
         if (userMarker == null) {
             userMarker = new Marker(mapView);
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         userMarker.setPosition(point);
         userMarker.setTitle("Mi ubicación");
-        mapView.invalidate(); // Refresca el mapa para mostrar cambios
+        mapView.invalidate();
     }
 
     private void showLocation(Location location) {
@@ -95,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Gestión del ciclo de vida para el mapa
     @Override
     protected void onResume() {
         super.onResume();
@@ -118,12 +114,16 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == LOCATION_PERMISSION_CODE) {
             boolean granted = false;
             for (int res : grantResults) {
-                if (res == PackageManager.PERMISSION_GRANTED) granted = true;
+                if (res == PackageManager.PERMISSION_GRANTED) {
+                    granted = true;
+                    break;
+                }
             }
+
             if (granted) {
                 getLocation();
             } else {
-                Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show();
             }
         }
     }

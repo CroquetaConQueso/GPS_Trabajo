@@ -31,25 +31,26 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#AAFFFFFF"> <TextView
-        android:id="@+id/txtLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Ubicación no disponible"
-        android:textColor="@color/darkText"
-        android:textSize="18sp" />
+        android:padding="24dp"
+        android:background="#CCFFFFFF">
+
+        <TextView
+            android:id="@+id/txtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Ubicación no disponible"
+            android:textColor="@color/darkText"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnGetLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/lightGreen"
             android:fontFamily="sans-serif-condensed"
             android:text="Obtener ubicación"
             android:textColor="@color/darkText" />
     </LinearLayout>
-
 </RelativeLayout>
